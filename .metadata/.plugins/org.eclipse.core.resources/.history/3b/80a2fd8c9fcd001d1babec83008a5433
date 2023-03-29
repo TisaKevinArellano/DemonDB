@@ -1,0 +1,27 @@
+package demon;
+
+import java.util.Iterator;
+import java.util.List;
+
+import reader.PropertiesReader;
+
+public class ComparingData {
+	
+	public void compare(List<String> Prod,List <String>Dev) {
+		Iterator<String> iterProd = Prod.iterator();
+		Iterator<String> iterDev = Dev.iterator();
+		PropertiesReader prop = new PropertiesReader();
+		
+		if(Prod.size()== Dev.size()) {
+			while(iterProd.hasNext()) {
+				if(!iterProd.next().equals(iterDev.next())) {
+					String[] tablas = prop.reader("tables").toString().split(",");
+				}
+				else {
+					//mostrar en log que esta igual 
+				}
+			}
+		}
+	}
+
+}

@@ -1,0 +1,48 @@
+package demon;
+
+import java.sql.Connection;
+import dao.DAO;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import dataBase.DataBase;
+public class Demon {
+
+	public static void main(String[] args) {
+		Logger log = LogManager.getLogger("Main Demon");
+		DataBase connect = new DataBase();
+		DAO dao = new DAO();
+		List<String> RESULT_strn_prod = new ArrayList<String>();
+		List<String> RESULT_strn_dev = new ArrayList<String>();
+		
+		
+		Connection connProd = connect.dbConnection("Prod");
+		Connection connDev = connect.dbConnection("DEV");
+		for(int i=0;i>-1;i++){
+			RESULT_strn_prod = dao.Access(connProd);
+			RESULT_strn_dev = dao.Access(connDev);
+			
+			Iterator<String> i1 = RESULT_strn_prod.iterator();
+			Iterator<String> i2 = RESULT_strn_dev.iterator();
+			
+			while(i1.hasNext()) {
+				System.out.println("Prod - " + i1.next());
+				System.out.println("Dev - " + i2.next());
+				
+			}
+			try {
+				log.info("Demon is going to sleep");
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				log.error("Error al inentar dormir el proceso: "+e);
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+}

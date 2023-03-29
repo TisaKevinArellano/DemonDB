@@ -1,0 +1,23 @@
+package dao;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class Insert {
+	
+	public void Adding(Connection connProd,Connection connDev,String tabla,String idProd) {
+		Select getAllData = new Select();
+		List<String> dataToInsert = new ArrayList<String>();
+		dataToInsert = getAllData.SelectNewData(connProd,tabla,idProd);
+		Iterator<String> dtInsIte = dataToInsert.iterator();
+		
+		while(dtInsIte.hasNext()){
+			dtInsIte.next();
+		}
+		
+		
+	}
+	
+}

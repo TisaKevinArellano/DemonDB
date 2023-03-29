@@ -1,0 +1,9 @@
+package dao;
+
+public class Insert {
+	
+	public void Adding(String tabla) {
+		
+	}
+	
+}

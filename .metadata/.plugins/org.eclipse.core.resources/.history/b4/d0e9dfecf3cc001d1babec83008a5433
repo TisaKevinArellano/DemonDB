@@ -1,0 +1,12 @@
+package dao;
+
+import java.sql.Connection;
+
+public class DAO {
+	
+	public void Access(Connection conn) {
+		
+		
+	}
+
+}

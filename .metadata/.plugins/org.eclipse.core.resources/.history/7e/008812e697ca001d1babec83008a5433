@@ -1,0 +1,50 @@
+package demon;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import org.apache.logging.log4j.Logger;
+
+import dataBase.DataBase;
+import reader.PropertiesReader;
+
+public class Demon {
+
+	public static void main(String[] args) {
+		PropertiesReader reader = new PropertiesReader();
+		Logger log = null;
+		DataBase connect = new DataBase();
+		String STATUSCARD = "SELECT ID FROM sfx_sch_pry_tisa.ope_status_card ORDER BY ID DESC";
+		String ENDORSEMENT = "SELECT ID FROM sfx_sch_pry_tisa.ope_endorsement ORDER BY ID DESC";
+		String BENEFICIARY = "SELECT ID FROM sfx_sch_pry_tisa.ope_beneficiary ORDER BY ID DESC";
+		String OPEUSER = "SELECT ID FROM sfx_sch_pry_tisa.ope_user ORDER BY ID DESC";
+		String OPEPERSON = "SELECT ID FROM sfx_sch_pry_tisa.ope_person ORDER BY ID DESC";
+		String HISTORYSEED = "SELECT ID FROM sfx_sch_pry_tisa.ope_history_seed ORDER BY ID DESC";
+		String CARDASSIGNMENT = "SELECT ID FROM sfx_sch_pry_tisa.ope_card_assignment ORDER BY ID DESC";
+		String RECHARGE = "SELECT ID FROM sfx_sch_pry_tisa.ope_recharge ORDER BY ID DESC";
+		String CREDENTIAL = "SELECT ID FROM sfx_sch_pry_tisa.ope_credential ORDER BY ID DESC";
+		String SHIFT = "SELECT ID FROM sfx_sch_pry_tisa.ope_shift ORDER BY ID DESC";
+		String PAYMENTS = "SELECT ID FROM sfx_sch_pry_tisa.ope_payments ORDER BY ID DESC";
+		String BOXCUT = "SELECT ID FROM sfx_sch_pry_tisa.ope_box_cut ORDER BY ID DESC";
+		
+		Connection conn = connect.dbConnection();
+		
+		for(int i=0;i>-1;i++){
+			try {conn.prepareStatement(STATUSCARD);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla status_card "+e);e.printStackTrace();}
+			try {conn.prepareStatement(ENDORSEMENT);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla endorsement "+e);e.printStackTrace();}
+			try {conn.prepareStatement(BENEFICIARY);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla beneficiary "+e);e.printStackTrace();}
+			try {conn.prepareStatement(OPEUSER);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla user"+e);e.printStackTrace();}
+			try {conn.prepareStatement(OPEPERSON);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla person"+e);e.printStackTrace();}
+			try {conn.prepareStatement(HISTORYSEED);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla history seed "+e);e.printStackTrace();}
+			try {conn.prepareStatement(CARDASSIGNMENT);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla status_card "+e);e.printStackTrace();}
+			try {conn.prepareStatement(RECHARGE);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla recharge "+e);e.printStackTrace();}
+			try {conn.prepareStatement(CREDENTIAL);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla credential "+e);e.printStackTrace();}
+			try {conn.prepareStatement(SHIFT);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla shift "+e);e.printStackTrace();}
+			try {conn.prepareStatement(PAYMENTS);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla payments "+e);e.printStackTrace();}
+			try {conn.prepareStatement(BOXCUT);} catch (SQLException e) {log.error("Error consultando la base de datos - tabla box cut"+e);e.printStackTrace();}
+			
+		}
+		
+	}
+
+}

@@ -1,0 +1,44 @@
+package dataBase;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class DataBase {
+	
+	public Connection dbConnection(){
+		Properties prop = new Properties();
+		Connection conn;
+		Logger log = LogManager.getLogger();
+		
+		String db;
+		String user;
+		String pswd;
+		String port;
+		String srvName;
+		
+		try {
+			 db= prop.getProperty("DataBaseProd");
+			System.out.println(db);
+			 user= prop.getProperty("UserProd");
+			 pswd= prop.getProperty("PasswordProd");
+			 port= prop.getProperty("PortProd");
+			 srvName= prop.getProperty("ServerNameProd");
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://"+srvName+":"+port+""+db,user,pswd);
+			return conn;
+			
+		} catch (SQLException e) {
+			log.error("Error trying to connect to DB: " + e);
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+
+}

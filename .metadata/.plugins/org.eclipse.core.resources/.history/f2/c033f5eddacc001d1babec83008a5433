@@ -1,0 +1,175 @@
+package demon;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import dataBase.DataBase;
+import reader.PropertiesReader;
+
+public class Demon {
+
+	public static void main(String[] args) {
+		PropertiesReader reader = new PropertiesReader();
+		Logger log = LogManager.getLogger();
+		DataBase connect = new DataBase();
+		String STATUSCARD = "SELECT ID FROM sfx_sch_pry_tisa.ope_status_card ORDER BY ID DESC";
+		String ENDORSEMENT = "SELECT ID FROM sfx_sch_pry_tisa.ope_endorsement ORDER BY ID DESC";
+		String BENEFICIARY = "SELECT ID FROM sfx_sch_pry_tisa.ope_beneficiary ORDER BY ID DESC";
+		String OPEUSER = "SELECT ID FROM sfx_sch_pry_tisa.ope_user ORDER BY ID DESC";
+		String OPEPERSON = "SELECT ID FROM sfx_sch_pry_tisa.ope_person ORDER BY ID DESC";
+		String HISTORYSEED = "SELECT ID FROM sfx_sch_pry_tisa.ope_history_seed ORDER BY ID DESC";
+		String CARDASSIGNMENT = "SELECT ID FROM sfx_sch_pry_tisa.ope_card_assignment ORDER BY ID DESC";
+		String RECHARGE = "SELECT ID FROM sfx_sch_pry_tisa.ope_recharge ORDER BY ID DESC";
+		String CREDENTIAL = "SELECT ID FROM sfx_sch_pry_tisa.ope_credential ORDER BY ID DESC";
+		String SHIFT = "SELECT ID FROM sfx_sch_pry_tisa.ope_shift ORDER BY ID DESC";
+		String PAYMENTS = "SELECT ID FROM sfx_sch_pry_tisa.ope_payments ORDER BY ID DESC";
+		String BOXCUT = "SELECT ID FROM sfx_sch_pry_tisa.ope_box_cut ORDER BY ID DESC";
+		PreparedStatement PRPSTM_STATUSCARD;
+		PreparedStatement PRPSTM_ENDORSEMENT; 
+		PreparedStatement PRPSTM_BENEFICIARY;
+		PreparedStatement PRPSTM_OPEUSER; 
+		PreparedStatement PRPSTM_OPEPERSON; 
+		PreparedStatement PRPSTM_HISTORYSEED; 
+		PreparedStatement PRPSTM_CARDASSIGNMENT; 
+		PreparedStatement PRPSTM_RECHARGE; 
+		PreparedStatement PRPSTM_CREDENTIAL; 
+		PreparedStatement PRPSTM_SHIFT; 
+		PreparedStatement PRPSTM_PAYMENTS;
+		PreparedStatement PRPSTM_BOXCUT;
+		String STATUSCARD_RESULT_strn = null;
+		String ENDORSEMENT_RESULT_strn = null;
+		String BENEFICIARY_RESULT_strn = null;
+		String OPEUSER_RESULT_strn = null;
+		String OPEPERSON_RESULT_strn = null;
+		String HISTORYSEED_RESULT_strn = null;
+		String CARDASSIGNMENT_RESULT_strn = null;
+		String RECHARGE_RESULT_strn = null;
+		String CREDENTIAL_RESULT_strn = null;
+		String SHIFT_RESULT_strn = null;
+		String PAYMENTS_RESULT_strn = null;
+		String BOXCUT_RESULT_strn = null;
+		
+		
+		Connection conn = connect.dbConnection();
+		
+		for(int i=0;i>-1;i++){
+	
+			try {
+				PRPSTM_STATUSCARD = conn.prepareStatement(STATUSCARD);
+				ResultSet STATUSCARD_RESULT = PRPSTM_STATUSCARD.executeQuery();
+				if(STATUSCARD_RESULT.next())
+					STATUSCARD_RESULT_strn = STATUSCARD_RESULT.getString(1);
+				log.debug(STATUSCARD_RESULT_strn);
+				log.info("Correcta ejecucion del query "+STATUSCARD);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla status_card "+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_ENDORSEMENT = conn.prepareStatement(ENDORSEMENT);
+				ResultSet ENDORSEMENT_RESULT= PRPSTM_ENDORSEMENT.executeQuery();
+				if(ENDORSEMENT_RESULT.next())
+					ENDORSEMENT_RESULT_strn = ENDORSEMENT_RESULT.getString(1);
+				log.debug(ENDORSEMENT_RESULT_strn);
+				log.info("Correcta ejecucion del query "+ENDORSEMENT);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla endorsement "+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_BENEFICIARY = conn.prepareStatement(BENEFICIARY);
+				ResultSet BENEFICIARY_RESULT = PRPSTM_BENEFICIARY.executeQuery();
+				if(BENEFICIARY_RESULT.next())
+				BENEFICIARY_RESULT_strn = BENEFICIARY_RESULT.getString(1);
+				log.debug(BENEFICIARY_RESULT_strn);
+				log.info("Correcta ejecucion del query "+BENEFICIARY);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla beneficiary "+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_OPEUSER = conn.prepareStatement(OPEUSER);
+				ResultSet OPEUSER_RESULT = PRPSTM_OPEUSER.executeQuery();
+				if(OPEUSER_RESULT.next())
+				OPEUSER_RESULT_strn = OPEUSER_RESULT.getString(1);
+				log.debug(OPEUSER_RESULT_strn);
+				log.info("Correcta ejecucion del query "+OPEUSER);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla user"+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_OPEPERSON = conn.prepareStatement(OPEPERSON);
+				ResultSet OPEPERSON_RESULT = PRPSTM_OPEPERSON.executeQuery();
+				if(OPEPERSON_RESULT.next())
+				OPEPERSON_RESULT_strn = OPEPERSON_RESULT.getString(1);
+				log.debug(OPEPERSON_RESULT_strn);
+				log.info("Correcta ejecucion del query "+OPEPERSON);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla person"+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_HISTORYSEED= conn.prepareStatement(HISTORYSEED);
+				ResultSet HISTORYSEED_RESULT = PRPSTM_HISTORYSEED.executeQuery();
+				if(HISTORYSEED_RESULT.next())
+				HISTORYSEED_RESULT_strn = HISTORYSEED_RESULT.getString(1);
+				log.debug(HISTORYSEED_RESULT_strn);
+				log.info("Correcta ejecucion del query "+HISTORYSEED);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla history seed "+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_CARDASSIGNMENT = conn.prepareStatement(CARDASSIGNMENT);
+				ResultSet CARDASSIGNMENT_RESULT = PRPSTM_CARDASSIGNMENT.executeQuery();
+				if(CARDASSIGNMENT_RESULT.next())
+				CARDASSIGNMENT_RESULT_strn = CARDASSIGNMENT_RESULT.getString(1);
+				log.debug(CARDASSIGNMENT_RESULT_strn);
+				log.info("Correcta ejecucion del query "+CARDASSIGNMENT);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla status_card "+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_RECHARGE = conn.prepareStatement(RECHARGE);
+				ResultSet RECHARGE_RESULT = PRPSTM_RECHARGE.executeQuery();
+				if(RECHARGE_RESULT.next())
+				RECHARGE_RESULT_strn = RECHARGE_RESULT.getString(1);
+				log.debug(RECHARGE_RESULT_strn);
+				log.info("Correcta ejecucion del query "+RECHARGE);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla recharge "+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_CREDENTIAL = conn.prepareStatement(CREDENTIAL);
+				ResultSet CREDENTIAL_RESULT = PRPSTM_CREDENTIAL.executeQuery();
+				if(CREDENTIAL_RESULT.next())
+				CREDENTIAL_RESULT_strn = CREDENTIAL_RESULT.getString(1);
+				log.debug(CREDENTIAL_RESULT_strn);
+				log.info("Correcta ejecucion del query "+CREDENTIAL);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla credential "+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_SHIFT = conn.prepareStatement(SHIFT);
+				ResultSet SHIFT_RESULT = PRPSTM_SHIFT.executeQuery();
+				if(SHIFT_RESULT.next())
+				SHIFT_RESULT_strn = SHIFT_RESULT.getString(1);
+				log.debug(SHIFT_RESULT_strn);
+				log.info("Correcta ejecucion del query "+SHIFT);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla shift "+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_PAYMENTS = conn.prepareStatement(PAYMENTS);
+				ResultSet PAYMENTS_RESULT = PRPSTM_PAYMENTS.executeQuery();
+				if(PAYMENTS_RESULT.next())
+				PAYMENTS_RESULT_strn = PAYMENTS_RESULT.getString(1);
+				log.debug(PAYMENTS_RESULT_strn);
+				log.info("Correcta ejecucion del query "+PAYMENTS);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla payments "+e);e.printStackTrace();}
+			
+			try {
+				PRPSTM_BOXCUT = conn.prepareStatement(BOXCUT);
+				ResultSet BOXCUT_RESULT = PRPSTM_BOXCUT.executeQuery();
+				if(BOXCUT_RESULT.next())
+				BOXCUT_RESULT_strn = BOXCUT_RESULT.getString(1);
+				log.debug(BOXCUT_RESULT_strn);
+				log.info("Correcta ejecucion del query "+BOXCUT);} 
+			catch (SQLException e) {log.error("Error consultando la base de datos - tabla box cut"+e);e.printStackTrace();}
+			
+			
+		}
+		
+	}
+
+}

@@ -1,0 +1,33 @@
+package demon;
+
+import java.sql.Connection;
+import dao.DAO;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import dataBase.DataBase;
+import reader.PropertiesReader;
+
+public class Demon {
+
+	public static void main(String[] args) {
+		Logger log = LogManager.getLogger();
+		DataBase connect = new DataBase();
+		DAO dao = new DAO();
+		List<String> RESULT_strn_prod = new ArrayList<String>();
+		List<String> RESULT_strn_dev = new ArrayList<String>();
+		
+		
+		Connection connProd = connect.dbConnection("Prod");
+		Connection connDev = connect.dbConnection("DEV");
+		for(int i=0;i>-1;i++){
+			RESULT_strn_prod = dao.Access(connProd);
+			RESULT_strn_dev = dao.Access(connDev);
+		}
+		
+	}
+
+}

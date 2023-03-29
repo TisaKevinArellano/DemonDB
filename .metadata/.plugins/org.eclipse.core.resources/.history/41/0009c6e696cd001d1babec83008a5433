@@ -1,0 +1,51 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class Select {
+	
+	public List<String> Access(Connection conn) {
+		List<String> SELECTS = new ArrayList<String>();
+		Logger log = LogManager.getLogger("Accesing Data");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_status_card ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_endorsement ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_beneficiary ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_user ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_person ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_history_seed ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_card_assignment ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_recharge ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_credential ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_shift ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_payments ORDER BY ID DESC");
+		SELECTS.add("SELECT ID FROM sfx_sch_pry_tisa.ope_box_cut ORDER BY ID DESC");
+		PreparedStatement PRPSTM;
+		ResultSet RESULT;
+		Iterator<String>list = SELECTS.iterator();
+		List<String> slctRslt = new ArrayList<String>();
+		
+		while (list.hasNext()) {
+			try {
+				PRPSTM = conn.prepareStatement(list.next());
+				log.info("Running: "+PRPSTM);
+				RESULT = PRPSTM.executeQuery();
+				if(RESULT.next())
+				slctRslt.add(RESULT.getString(1));
+			} catch (SQLException e) {
+				log.error("Error consultando la base de datos "+e);
+			}
+		}
+		return slctRslt;
+		
+	}
+
+}

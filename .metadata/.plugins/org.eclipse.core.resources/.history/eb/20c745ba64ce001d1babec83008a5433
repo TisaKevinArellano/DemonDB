@@ -1,0 +1,151 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import reader.PropertiesReader;
+
+public class Select {
+	
+	public List<String> AccessId(Connection conn) {
+		List<String> SELECTS = new ArrayList<String>();
+		Logger log = LogManager.getLogger("Getting IDs");
+		PropertiesReader prop = new PropertiesReader();
+		String[] tablas = prop.reader("tables").toString().split(",");
+		for(int i = 0;i<tablas.length;i++)
+		SELECTS.add("SELECT ID FROM "+tablas[i]+" ORDER BY ID DESC LIMIT 1");
+		PreparedStatement PRPSTM;
+		ResultSet RESULT;
+		Iterator<String>list = SELECTS.iterator();
+		List<String> slctRslt = new ArrayList<String>();
+		
+		while (list.hasNext()) {
+			try {
+				PRPSTM = conn.prepareStatement(list.next());
+				log.info("Running: "+PRPSTM);
+				RESULT = PRPSTM.executeQuery();
+				if(RESULT.next())
+				slctRslt.add(RESULT.getString(1));
+			} catch (SQLException e) {
+				log.error("Error consultando la base de datos "+e);
+			}
+		}
+		return slctRslt;
+		
+	}
+	public List<String> SelectNewData(Connection conn, String tabla,String id) {
+		
+		List<String> SELECTS = new ArrayList<String>();
+		Logger log = LogManager.getLogger("Getting new data");
+		SELECTS.add("SELECT * FROM "+tabla+" WHERE id > "+id+"ORDER BY ID ASC");
+		Iterator<String>list = SELECTS.iterator();
+		PreparedStatement PRPSTM;
+		ResultSet RESULT;
+		List<String> slctRslt = new ArrayList<String>();
+		String valores;
+		
+		
+		if(list.hasNext()) {
+			try {
+				PRPSTM = conn.prepareStatement(list.next());
+				RESULT = PRPSTM.executeQuery();
+				switch (tabla) {
+				case "sfx_sch_pry_tisa.ope_status_card":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)
+						+"','"+RESULT.getString(7)+"','"+RESULT.getString(8)+"','"+RESULT.getString(9)+"')");
+					}
+				break;
+				case "sfx_sch_pry_tisa.ope_endorsement":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(7)+"','"+RESULT.getString(8)+"','"+RESULT.getString(10)+"','"+RESULT.getString(11)+"')");
+					}
+				break;	
+				case "sfx_sch_pry_tisa.ope_beneficiary":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(7)+"','"+RESULT.getString(8)+"','"+RESULT.getString(9)+"','"+RESULT.getString(11)+"')");
+					}
+				break;
+				case "sfx_sch_pry_tisa.ope_user":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(8)+"','"+RESULT.getString(9)+"','"+RESULT.getString(10)+"')");
+					}
+				break;	
+				case "sfx_sch_pry_tisa.ope_person":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(7)+"','"+RESULT.getString(9)+"','"+RESULT.getString(10)+"')");
+					}
+				break;	
+				case "sfx_sch_pry_tisa.ope_history_seed":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(7)+"','"+RESULT.getString(8)+"','"+RESULT.getString(10)+"')");
+					}
+				break;	
+				case "sfx_sch_pry_tisa.ope_card_assignment":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(8)+"','"+RESULT.getString(9)+"','"+RESULT.getString(10)+"','"+RESULT.getString(11)+"')");
+					}
+				break;	
+				case "sfx_sch_pry_tisa.ope_recharge":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(7)+"','"+RESULT.getString(8)+"','"+RESULT.getString(9)+"','"+RESULT.getString(10)+"','"+RESULT.getString(11)+"','"+RESULT.getString(12)
+						+"','"+RESULT.getString(13)+"','"+RESULT.getString(15)+"','"+RESULT.getString(16)+"','"+RESULT.getString(17)+"')");
+					}
+				break;	
+				case "sfx_sch_pry_tisa.ope_credential":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(7)+"','"+RESULT.getString(9)+"','"+RESULT.getString(10)+"','"+RESULT.getString(11)+"')");
+					}
+				break;	
+				case "sfx_sch_pry_tisa.ope_shift":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(8)+"','"+RESULT.getString(9)+"','"+RESULT.getString(10)+"')");
+					}
+				break;	
+				case "sfx_sch_pry_tisa.ope_payments":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(8)+"','"+RESULT.getString(9)+"','"+RESULT.getString(10)+"')");
+					}
+				break;	
+				case "sfx_sch_pry_tisa.ope_box_cut":
+					while(RESULT.next()) {
+						slctRslt.add("('"+RESULT.getString(1)+"','"+RESULT.getString(2)+"','"+RESULT.getString(3)+"','"+RESULT.getString(4)+"','"+RESULT.getString(5)+"','"+RESULT.getString(6)
+						+"','"+RESULT.getString(7)+"','"+RESULT.getString(9)+"','"+RESULT.getString(10)+"','"+RESULT.getString(11)+"','"+RESULT.getString(12)
+						+"','"+RESULT.getString(13)+"','"+RESULT.getString(14)+"','"+RESULT.getString(15)+"','"+RESULT.getString(16)+"','"+RESULT.getString(17)+"','"+RESULT.getString(18)
+						+"','"+RESULT.getString(19)+"','"+RESULT.getString(20)+"','"+RESULT.getString(21)+"','"+RESULT.getString(22)+"','"+RESULT.getString(23)+"','"+RESULT.getString(24)
+						+"','"+RESULT.getString(25)+"','"+RESULT.getString(26)+"','"+RESULT.getString(27)+"','"+RESULT.getString(28)+"','"+RESULT.getString(29)+"','"+RESULT.getString(30)
+						+"','"+RESULT.getString(31)+"','"+RESULT.getString(32)+"')");
+					}
+				break;
+			}
+				return slctRslt;
+				
+			} catch (SQLException e) {
+				log.error(""+e);
+				return slctRslt;
+			}
+			
+		}
+		return null;
+		
+	}
+
+}

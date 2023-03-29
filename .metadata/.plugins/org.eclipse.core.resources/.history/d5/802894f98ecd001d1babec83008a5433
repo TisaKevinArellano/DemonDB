@@ -1,0 +1,11 @@
+DataBaseProd=sfx_dev_pry_tisa_backup_20230327_0938
+UserProd=postgres
+PasswordProd=postgresdbTisa2022
+PortProd=5432
+ServerNameProd=192.168.1.171
+
+DataBaseDEV=Tisa_sfinx_DEV
+UserDEV=postgres
+PasswordDEV=D3E2v0K2V3.
+PortDEV=5432
+ServerNameDEV=localhost

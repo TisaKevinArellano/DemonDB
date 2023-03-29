@@ -1,0 +1,51 @@
+package dataBase;
+
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import reader.PropertiesReader;
+
+public class DataBase {
+	
+	public Connection dbConnection(){
+		PropertiesReader prop = new PropertiesReader();
+		Connection conn;
+		Logger log = LogManager.getLogger();
+		
+		String db;
+		String user;
+		String pswd;
+		String port;
+		String srvName;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver"); 
+			 db= prop.reader("DataBaseDEV");
+			System.out.println(db);
+			 user= prop.reader("UserDEV");
+			 pswd= prop.reader("PasswordDEV");
+			 port= prop.reader("PortDEV");
+			 srvName= prop.reader("ServerNameDEV");
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://"+"localhost"+":"+port+"/"+db,user,pswd);
+			return conn;
+			
+		} catch (SQLException e) {
+			log.error("Error trying to connect to DB: " + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+
+}

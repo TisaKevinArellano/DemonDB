@@ -1,0 +1,57 @@
+package demon;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import dao.Select;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import dataBase.DataBase;
+
+public class Demon {
+
+	public static void main(String[] args) {
+		Logger log = LogManager.getLogger(Demon.class);
+		DataBase connect = new DataBase();
+		Select dao = new Select();
+		List<String> RESULT_strn_prod = new ArrayList<String>();
+		List<String> RESULT_strn_dev = new ArrayList<String>();
+		ComparingData compare = new ComparingData();
+		
+		for(int i=0;i>-1;i++){
+			log.debug("Connecting to DB-PROD");
+			Connection connProd = connect.dbConnection("Prod");
+			log.debug("Connecting to DB-DEV");
+			Connection connDev = connect.dbConnection("DEV");
+			RESULT_strn_prod = dao.AccessId(connProd);
+			RESULT_strn_dev = dao.AccessId(connDev);
+			
+			Iterator<String> i1 = RESULT_strn_prod.iterator();
+			Iterator<String> i2 = RESULT_strn_dev.iterator();
+			
+			if(i1.hasNext()) {
+				log.info("Comparing...");
+				compare.Compare(RESULT_strn_prod, RESULT_strn_dev, connProd, connDev);
+				
+			}
+			try {
+				connProd.close();
+				connDev.close();
+			} catch (SQLException esql) {
+				log.error("Error al cerrar conexion de base de datos"+esql);
+				esql.printStackTrace();
+			}
+			try {
+				log.info("Demon is going to sleep");
+				Thread.sleep(30000);
+			} catch (InterruptedException e) {
+				log.error("Error al inentar dormir el proceso: "+e);
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+}

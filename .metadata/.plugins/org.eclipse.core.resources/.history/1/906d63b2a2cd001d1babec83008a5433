@@ -1,0 +1,13 @@
+package dao;
+
+import java.sql.Connection;
+
+public class Insert {
+	
+	public void Adding(Connection connProd,String tabla) {
+		Select getAllData = new Select();
+		
+		getAllData.SelectNewData(connProd,tabla);
+	}
+	
+}
